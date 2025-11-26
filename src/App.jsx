@@ -11,9 +11,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/users" element={<UserList />} />
+        {/* <Route path="/users" element={<UserList />} /> */}
         <Route path="/users/v2" element={<UserListV2 />} />
-        <Route path="/users/v3" element={<UserListV3 />} />
+        <Route path="/users" element={<UserListV3 />} />
         <Route path="/tree/:userId" element={<RollingPaperTree />} />
       </Routes>
     </Router>
