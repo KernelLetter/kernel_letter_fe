@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
  * 창문이 열리는 애니메이션 모달
@@ -10,17 +10,22 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
 
   useEffect(() => {
     if (isOpen) {
+      // 사운드 재생
+      const audio = new Audio('/sounds/window-open.mp3');
+      audio.volume = 0.5;
+      audio.play().catch(err => console.log('Sound play failed:', err));
+
       // 모달이 나타난 후 잠시 대기 후 열림 애니메이션 시작
       setTimeout(() => {
         setIsOpening(true);
       }, 300);
 
-      // 애니메이션 완료 후 콜백 실행
+      // 애니메이션 완료 후 콜백 실행 (천천히)
       setTimeout(() => {
         if (onAnimationComplete) {
           onAnimationComplete();
         }
-      }, 1300);
+      }, 2300);
     }
   }, [isOpen, onAnimationComplete]);
 
@@ -30,48 +35,17 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* 배경 오버레이 */}
       <div
-        className="absolute inset-0 bg-black transition-opacity duration-500"
+        className="absolute inset-0 bg-black transition-opacity duration-700"
         style={{ opacity: isOpening ? 0.8 : 0.3 }}
       />
 
       {/* 창문 컨테이너 */}
-      <div className="relative z-10 flex items-center justify-center">
+      <div className="relative z-10 flex items-center justify-center w-full h-full">
         <svg
-          width="400"
-          height="500"
+          className="w-full h-full animate-scaleIn"
           viewBox="0 0 100 125"
-          className="animate-scaleIn"
+          preserveAspectRatio="xMidYMid meet"
         >
-          <defs>
-            {/* 빛 그라데이션 */}
-            <radialGradient id="lightGradient">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="1" />
-              <stop offset="50%" stopColor="#FFD700" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#FFA500" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-
-          {/* 빛 효과 (창문이 열릴 때) */}
-          {isOpening && (
-            <>
-              <circle
-                cx="50"
-                cy="62.5"
-                r="60"
-                fill="url(#lightGradient)"
-                className="animate-expandLight"
-              />
-              <circle
-                cx="50"
-                cy="62.5"
-                r="40"
-                fill="rgba(255, 255, 255, 0.6)"
-                className="animate-expandLight"
-                style={{ animationDelay: '0.1s' }}
-              />
-            </>
-          )}
-
           {/* 창문 프레임 */}
           <rect
             x="25"
@@ -80,7 +54,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
             height="75"
             rx="2"
             fill="none"
-            stroke={isOpening ? '#FFA500' : '#8B7355'}
+            stroke={isOpening ? '#FFFFFF' : '#8B7355'}
             strokeWidth="1.5"
             className="transition-all duration-300"
           />
@@ -90,7 +64,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
             style={{
               transformOrigin: '25px 62.5px',
               transform: isOpening ? 'perspective(800px) rotateY(-120deg)' : 'none',
-              transition: 'transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+              transition: 'transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
             }}
           >
             <rect
@@ -99,7 +73,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
               width="24"
               height="75"
               rx="2"
-              fill={isOpening ? '#FFD700' : '#F5F5DC'}
+              fill={isOpening ? '#E0F7FF' : '#F5F5DC'}
               stroke="#8B7355"
               strokeWidth="0.8"
             />
@@ -113,7 +87,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
             style={{
               transformOrigin: '75px 62.5px',
               transform: isOpening ? 'perspective(800px) rotateY(120deg)' : 'none',
-              transition: 'transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
+              transition: 'transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
             }}
           >
             <rect
@@ -122,7 +96,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
               width="24"
               height="75"
               rx="2"
-              fill={isOpening ? '#FFD700' : '#F5F5DC'}
+              fill={isOpening ? '#E0F7FF' : '#F5F5DC'}
               stroke="#8B7355"
               strokeWidth="0.8"
             />
@@ -149,26 +123,8 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete }) {
           }
         }
 
-        @keyframes expandLight {
-          0% {
-            r: 0;
-            opacity: 0;
-          }
-          50% {
-            opacity: 1;
-          }
-          100% {
-            r: 100;
-            opacity: 0;
-          }
-        }
-
         .animate-scaleIn {
           animation: scaleIn 0.3s ease-out forwards;
-        }
-
-        .animate-expandLight {
-          animation: expandLight 1s ease-out forwards;
         }
       `}</style>
     </div>
