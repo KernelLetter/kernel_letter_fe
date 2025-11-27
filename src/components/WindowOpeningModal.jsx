@@ -8,6 +8,22 @@ import { useEffect, useState } from 'react';
  */
 export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPageUrl }) {
   const [isOpening, setIsOpening] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+
+  // 화면 크기 변경 감지
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -76,40 +92,46 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
               <foreignObject x="25" y="25" width="50" height="75" clipPath="url(#windowClip)">
                 <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
                   {/* 반짝이는 별들 */}
-                  {[...Array(20)].map((_, i) => (
-                    <div
-                      key={`star-${i}`}
-                      className="animate-sparkle"
-                      style={{
-                        position: 'absolute',
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        fontSize: `${1.5 + Math.random() * 2}em`,
-                        animationDelay: `${Math.random() * 1.5}s`,
-                        animationDuration: `${1 + Math.random() * 1}s`
-                      }}
-                    >
-                      ✨
-                    </div>
-                  ))}
+                  {[...Array(20)].map((_, i) => {
+                    const size = 0.8 + Math.random() * 1.2;
+                    return (
+                      <div
+                        key={`star-${i}`}
+                        className="animate-sparkle"
+                        style={{
+                          position: 'absolute',
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                          fontSize: isMobile ? `${size * 2}em` : `${size}px`,
+                          animationDelay: `${Math.random() * 1.5}s`,
+                          animationDuration: `${1 + Math.random() * 1}s`
+                        }}
+                      >
+                        ✨
+                      </div>
+                    );
+                  })}
 
                   {/* 눈송이들 */}
-                  {[...Array(15)].map((_, i) => (
-                    <div
-                      key={`snow-${i}`}
-                      className="animate-snowfall"
-                      style={{
-                        position: 'absolute',
-                        left: `${Math.random() * 100}%`,
-                        top: `-10%`,
-                        fontSize: `${1.2 + Math.random() * 1.5}em`,
-                        animationDelay: `${Math.random() * 1.5}s`,
-                        animationDuration: `${2 + Math.random() * 2}s`
-                      }}
-                    >
-                      ❄️
-                    </div>
-                  ))}
+                  {[...Array(15)].map((_, i) => {
+                    const size = 1 + Math.random() * 1;
+                    return (
+                      <div
+                        key={`snow-${i}`}
+                        className="animate-snowfall"
+                        style={{
+                          position: 'absolute',
+                          left: `${Math.random() * 100}%`,
+                          top: `-10%`,
+                          fontSize: isMobile ? `${size * 2}em` : `${size}px`,
+                          animationDelay: `${Math.random() * 1.5}s`,
+                          animationDuration: `${2 + Math.random() * 2}s`
+                        }}
+                      >
+                        ❄️
+                      </div>
+                    );
+                  })}
                 </div>
               </foreignObject>
             </>
