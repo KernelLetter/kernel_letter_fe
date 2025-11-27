@@ -27,7 +27,7 @@ export default function ChristmasBuilding({ users, onUserClick }) {
   return (
     <div className="w-full h-full relative">
       <svg
-        className="w-full h-full min-h-[750px] md:min-h-0"
+        className="w-full h-full min-h-[600px] md:min-h-0"
         viewBox={isMobile ? "18 0 64 92" : "0 0 100 100"}
         preserveAspectRatio="xMidYMid meet"
       >
@@ -115,36 +115,32 @@ export default function ChristmasBuilding({ users, onUserClick }) {
         </g>
 
         {/* 양옆 작은 크리스마스 트리들 - 데스크탑에서만 표시 */}
-        {!isMobile && (
-          <g className="side-trees">
-            {/* 왼쪽 트리 */}
-            <path d="M 10 85 L 7 90 L 13 90 Z" fill="#0D5E20"/>
-            <path d="M 10 82 L 6 88 L 14 88 Z" fill="#165E20"/>
-            <circle cx="10" cy="81" r="0.5" fill="#FFD700"/>
-            <rect x="9.5" y="90" width="1" height="2" fill="#654321"/>
+        <g className="side-trees">
+          {/* 왼쪽 트리 */}
+          <path d="M 10 85 L 7 90 L 13 90 Z" fill="#0D5E20"/>
+          <path d="M 10 82 L 6 88 L 14 88 Z" fill="#165E20"/>
+          <circle cx="10" cy="81" r="0.5" fill="#FFD700"/>
+          <rect x="9.5" y="90" width="1" height="2" fill="#654321"/>
 
-            {/* 오른쪽 트리 */}
-            <path d="M 90 85 L 87 90 L 93 90 Z" fill="#0D5E20"/>
-            <path d="M 90 82 L 86 88 L 94 88 Z" fill="#165E20"/>
-            <circle cx="90" cy="81" r="0.5" fill="#FFD700"/>
-            <rect x="89.5" y="90" width="1" height="2" fill="#654321"/>
-          </g>
-        )}
+          {/* 오른쪽 트리 */}
+          <path d="M 90 85 L 87 90 L 93 90 Z" fill="#0D5E20"/>
+          <path d="M 90 82 L 86 88 L 94 88 Z" fill="#165E20"/>
+          <circle cx="90" cy="81" r="0.5" fill="#FFD700"/>
+          <rect x="89.5" y="90" width="1" height="2" fill="#654321"/>
+        </g>
 
         {/* 선물 상자들 - 데스크탑에서만 표시 */}
-        {!isMobile && (
-          <g className="gifts">
-            {/* 왼쪽 선물 */}
-            <rect x="5" y="88" width="3" height="3" fill="#DC143C" stroke="#A01729" strokeWidth="0.1"/>
-            <rect x="6.3" y="88" width="0.4" height="3" fill="#FFD700"/>
-            <rect x="5" y="89.3" width="3" height="0.4" fill="#FFD700"/>
+        <g className="gifts">
+          {/* 왼쪽 선물 */}
+          <rect x="5" y="88" width="3" height="3" fill="#DC143C" stroke="#A01729" strokeWidth="0.1"/>
+          <rect x="6.3" y="88" width="0.4" height="3" fill="#FFD700"/>
+          <rect x="5" y="89.3" width="3" height="0.4" fill="#FFD700"/>
 
-            {/* 오른쪽 선물 */}
-            <rect x="92" y="88" width="3" height="3" fill="#0D5E20" stroke="#0A4015" strokeWidth="0.1"/>
-            <rect x="93.3" y="88" width="0.4" height="3" fill="#FFD700"/>
-            <rect x="92" y="89.3" width="3" height="0.4" fill="#FFD700"/>
-          </g>
-        )}
+          {/* 오른쪽 선물 */}
+          <rect x="92" y="88" width="3" height="3" fill="#0D5E20" stroke="#0A4015" strokeWidth="0.1"/>
+          <rect x="93.3" y="88" width="0.4" height="3" fill="#FFD700"/>
+          <rect x="92" y="89.3" width="3" height="0.4" fill="#FFD700"/>
+        </g>
 
         {/* 창문들 (사용자들) */}
         {users.map((user) => (
@@ -161,6 +157,16 @@ export default function ChristmasBuilding({ users, onUserClick }) {
           pointerEvents="none"
         />
       </svg>
+
+      {/* 모바일에서 트리와 선물 숨기기 */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .side-trees,
+          .gifts {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }
