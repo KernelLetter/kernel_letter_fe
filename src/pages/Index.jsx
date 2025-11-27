@@ -58,13 +58,13 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md px-4">
             <button
               onClick={handleWriteClick}
-              className="flex-1 py-3 sm:py-4 bg-yellow-400 text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-yellow-500 transition-all hover:scale-105 shadow-lg"
+              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-300 transition-all hover:scale-105 shadow-lg"
             >
               📝 롤링페이퍼 작성하기
             </button>
             <button
               onClick={handleViewClick}
-              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-100 transition-all hover:scale-105 shadow-lg"
+              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-300 transition-all hover:scale-105 shadow-lg"
             >
               📋 작성한 내용 확인하기
             </button>

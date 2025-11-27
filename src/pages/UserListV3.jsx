@@ -32,7 +32,7 @@ export default function UserListV3() {
           <h1 className="text-xs sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-0.5 sm:mb-2 whitespace-nowrap">
             크리스마스 하우스
           </h1>
-          <p className="text-white/70 text-[8px] sm:text-sm">
+          <p className="text-white/70 text-sl sm:text-base">
             창문을 클릭하여 편지를 남겨주세요
           </p>
         </div>
@@ -44,12 +44,12 @@ export default function UserListV3() {
 
         {/* 하단 안내 */}
         <div className="mt-1 sm:mt-6 text-center space-y-1 sm:space-y-3 mb-1 sm:mb-0 flex flex-col items-center">
-          <div className="inline-block px-2 sm:px-6 py-0.5 sm:py-2 bg-white/10 rounded-full text-white/70 text-[8px] sm:text-sm">
+          {/* <div className="inline-block px-2 sm:px-6 py-0.5 sm:py-2 bg-white/10 rounded-full text-white/70 text-[8px] sm:text-sm">
             🎁 창문에 마우스를 올려 이름을 확인하세요
-          </div>
-          <div className="text-white/50 text-[7px] sm:text-xs">
+          </div> */}
+          {/* <div className="text-white/50 text-[7px] sm:text-xs">
             빛나는 창문을 클릭하여 롤링페이퍼를 작성하세요
-          </div>
+          </div> */}
         </div>
       </div>
 
