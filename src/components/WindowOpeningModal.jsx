@@ -170,9 +170,13 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
               stroke="#8B7355"
               strokeWidth="0.8"
             />
-            {/* 왼쪽 창문 프레임 */}
-            <line x1="37" y1="25" x2="37" y2="100" stroke="#654321" strokeWidth="1" />
-            <line x1="25" y1="62.5" x2="49" y2="62.5" stroke="#654321" strokeWidth="1" />
+            {/* 왼쪽 창문 프레임 - 열릴 때 숨김 */}
+            {!isOpening && (
+              <>
+                <line x1="37" y1="25" x2="37" y2="100" stroke="#654321" strokeWidth="1" />
+                <line x1="25" y1="62.5" x2="49" y2="62.5" stroke="#654321" strokeWidth="1" />
+              </>
+            )}
           </g>
 
           {/* 오른쪽 창문 문짝 */}
@@ -194,14 +198,22 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
               stroke="#8B7355"
               strokeWidth="0.8"
             />
-            {/* 오른쪽 창문 프레임 */}
-            <line x1="63" y1="25" x2="63" y2="100" stroke="#654321" strokeWidth="1" />
-            <line x1="51" y1="62.5" x2="75" y2="62.5" stroke="#654321" strokeWidth="1" />
+            {/* 오른쪽 창문 프레임 - 열릴 때 숨김 */}
+            {!isOpening && (
+              <>
+                <line x1="63" y1="25" x2="63" y2="100" stroke="#654321" strokeWidth="1" />
+                <line x1="51" y1="62.5" x2="75" y2="62.5" stroke="#654321" strokeWidth="1" />
+              </>
+            )}
           </g>
 
-          {/* 중앙 프레임 (항상 보이는 부분) */}
-          <line x1="50" y1="25" x2="50" y2="100" stroke="#654321" strokeWidth="2" />
-          <line x1="25" y1="62.5" x2="75" y2="62.5" stroke="#654321" strokeWidth="2" />
+          {/* 중앙 프레임 - 열릴 때 숨김 */}
+          {!isOpening && (
+            <>
+              <line x1="50" y1="25" x2="50" y2="100" stroke="#654321" strokeWidth="2" />
+              <line x1="25" y1="62.5" x2="75" y2="62.5" stroke="#654321" strokeWidth="2" />
+            </>
+          )}
         </svg>
       </div>
 
