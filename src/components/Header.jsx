@@ -38,7 +38,11 @@ export default function Header({ isLoggedIn, setIsLoggedIn, userName, setUserNam
           ) : (
             <button
               onClick={handleLogin}
+<<<<<<< HEAD
               className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors border-0"
+=======
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-400 text-gray-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors border-0"
+>>>>>>> origin/main
             >
               로그인
             </button>
