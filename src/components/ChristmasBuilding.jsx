@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import WindowNode from './WindowNode';
 
 /**
@@ -7,11 +7,28 @@ import WindowNode from './WindowNode';
  * @param {Function} onUserClick - 사용자 클릭 핸들러
  */
 export default function ChristmasBuilding({ users, onUserClick }) {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <div className="w-full flex-1 relative">
+    <div className="w-full h-full relative">
       <svg
-        className="w-full h-full min-h-[850px]"
-        viewBox="0 0 100 100"
+        className="w-full h-full min-h-[600px] md:min-h-0"
+        viewBox={isMobile ? "18 0 64 92" : "0 0 100 100"}
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
@@ -97,7 +114,7 @@ export default function ChristmasBuilding({ users, onUserClick }) {
           <circle cx="50" cy="77" r="0.3" fill="#DC143C"/>
         </g>
 
-        {/* 양옆 작은 크리스마스 트리들 */}
+        {/* 양옆 작은 크리스마스 트리들 - 데스크탑에서만 표시 */}
         <g className="side-trees">
           {/* 왼쪽 트리 */}
           <path d="M 10 85 L 7 90 L 13 90 Z" fill="#0D5E20"/>
@@ -112,7 +129,7 @@ export default function ChristmasBuilding({ users, onUserClick }) {
           <rect x="89.5" y="90" width="1" height="2" fill="#654321"/>
         </g>
 
-        {/* 선물 상자들 */}
+        {/* 선물 상자들 - 데스크탑에서만 표시 */}
         <g className="gifts">
           {/* 왼쪽 선물 */}
           <rect x="5" y="88" width="3" height="3" fill="#DC143C" stroke="#A01729" strokeWidth="0.1"/>
@@ -140,6 +157,16 @@ export default function ChristmasBuilding({ users, onUserClick }) {
           pointerEvents="none"
         />
       </svg>
+
+      {/* 모바일에서 트리와 선물 숨기기 */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .side-trees,
+          .gifts {
+            display: none;
+          }
+        }
+      `}</style>
     </div>
   );
 }

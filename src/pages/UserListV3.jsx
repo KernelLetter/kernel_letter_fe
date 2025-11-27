@@ -25,29 +25,29 @@ export default function UserListV3() {
         setUserName={setUserName}
       />
 
-      <div className="flex-1 flex flex-col items-center p-4 sm:p-6 md:p-8">
+      <div className="flex-1 flex flex-col items-center px-1 py-2 sm:p-6 md:p-8">
         {/* 타이틀 */}
-        <div className="text-center mb-6 sm:mb-8 mt-4">
-          <div className="text-3xl sm:text-4xl mb-3">🏠</div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-2">
+        <div className="text-center mb-1 sm:mb-8 mt-0 sm:mt-4">
+          <div className="text-2xl sm:text-4xl mb-0.5 sm:mb-3">🏠</div>
+          <h1 className="text-xs sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-0.5 sm:mb-2 whitespace-nowrap">
             크리스마스 하우스
           </h1>
-          <p className="text-white/70 text-xs sm:text-sm">
+          <p className="text-white/70 text-[8px] sm:text-sm">
             창문을 클릭하여 편지를 남겨주세요
           </p>
         </div>
 
         {/* 크리스마스 건물 */}
-        <div className="w-full max-w-5xl">
+        <div className="w-full sm:max-w-5xl flex-1">
           <ChristmasBuilding users={users} onUserClick={handleUserClick} />
         </div>
 
         {/* 하단 안내 */}
-        <div className="mt-6 text-center space-y-3">
-          <div className="inline-block px-4 sm:px-6 py-2 bg-white/10 rounded-full text-white/70 text-xs sm:text-sm">
+        <div className="mt-1 sm:mt-6 text-center space-y-1 sm:space-y-3 mb-1 sm:mb-0 flex flex-col items-center">
+          <div className="inline-block px-2 sm:px-6 py-0.5 sm:py-2 bg-white/10 rounded-full text-white/70 text-[8px] sm:text-sm">
             🎁 창문에 마우스를 올려 이름을 확인하세요
           </div>
-          <div className="text-white/50 text-xs">
+          <div className="text-white/50 text-[7px] sm:text-xs">
             빛나는 창문을 클릭하여 롤링페이퍼를 작성하세요
           </div>
         </div>

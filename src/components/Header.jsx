@@ -30,7 +30,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn, userName, setUserNam
               <span className="text-white text-sm sm:text-base">{userName}님</span>
               <button
                 onClick={handleLogout}
-                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors border-0"
               >
                 로그아웃
               </button>
@@ -38,7 +38,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn, userName, setUserNam
           ) : (
             <button
               onClick={handleLogin}
-              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-400 text-gray-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-400 text-gray-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors border-0"
             >
               로그인
             </button>
