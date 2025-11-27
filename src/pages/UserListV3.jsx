@@ -2,18 +2,33 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import ChristmasBuilding from '../components/ChristmasBuilding';
+import WindowOpeningModal from '../components/WindowOpeningModal';
 import { useBuildingPositioning } from '../hooks/useBuildingPositioning';
 
 export default function UserListV3() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userName, setUserName] = useState('사용자');
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   // 커스텀 훅으로 건물 창문 형태의 사용자 위치 계산
   const users = useBuildingPositioning();
 
   const handleUserClick = (userId, userName) => {
-    navigate(`/tree/${userId}`, { state: { pageOwner: userName } });
+    // 선택된 사용자 정보 저장
+    setSelectedUser({ userId, userName });
+    // 모달 표시
+    setShowModal(true);
+  };
+
+  const handleAnimationComplete = () => {
+    // 애니메이션 완료 후 페이지 이동
+    if (selectedUser) {
+      navigate(`/tree/${selectedUser.userId}`, {
+        state: { pageOwner: selectedUser.userName }
+      });
+    }
   };
 
   return (
@@ -82,6 +97,12 @@ export default function UserListV3() {
           animation: fall linear infinite;
         }
       `}</style>
+
+      {/* 창문 열림 모달 */}
+      <WindowOpeningModal
+        isOpen={showModal}
+        onAnimationComplete={handleAnimationComplete}
+      />
     </div>
   );
 }
