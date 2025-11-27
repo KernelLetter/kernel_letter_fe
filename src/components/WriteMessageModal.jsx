@@ -54,21 +54,13 @@ export default function WriteMessageModal({
         <div className="flex gap-2">
           <button
             onClick={onCancel}
-<<<<<<< HEAD
-            className="flex-1 py-2.5 bg-white text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors border-0"
-=======
             className="flex-1 py-2.5 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors border-0"
->>>>>>> origin/main
           >
             취소
           </button>
           <button
             onClick={onSubmit}
-<<<<<<< HEAD
-            className="flex-1 py-2.5 bg-white text-gray-900 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors border-0"
-=======
             className="flex-1 py-2.5 bg-yellow-400 text-gray-900 rounded-lg text-sm font-medium hover:bg-yellow-500 transition-colors border-0"
->>>>>>> origin/main
           >
             작성 완료
           </button>
