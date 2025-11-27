@@ -102,6 +102,7 @@ export default function UserListV3() {
       <WindowOpeningModal
         isOpen={showModal}
         onAnimationComplete={handleAnimationComplete}
+        nextPageUrl={selectedUser ? `/tree/${selectedUser.userId}` : ''}
       />
     </div>
   );
