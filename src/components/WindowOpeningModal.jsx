@@ -88,67 +88,53 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
                 clipPath="url(#windowClip)"
               />
 
-              {/* 별들과 눈송이를 SVG 내부에 foreignObject로 */}
-              <foreignObject
-                x="25"
-                y="25"
-                width="50"
-                height="75"
-                clipPath="url(#windowClip)"
-              >
-                <div
-                  xmlns="http://www.w3.org/1999/xhtml"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxSizing: 'border-box'
-                  }}
-                >
-                  {/* 반짝이는 별들 */}
-                  {[...Array(20)].map((_, i) => {
-                    const size = 0.8 + Math.random() * 1.2;
-                    return (
-                      <div
-                        key={`star-${i}`}
-                        className="animate-sparkle"
-                        style={{
-                          position: 'absolute',
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                          fontSize: isMobile ? `${size * 0.8}em` : `${size}px`,
-                          animationDelay: `${Math.random() * 1.5}s`,
-                          animationDuration: `${1 + Math.random() * 1}s`
-                        }}
-                      >
-                        ✨
-                      </div>
-                    );
-                  })}
+              {/* 반짝이는 별들 - SVG text로 직접 렌더링 */}
+              <g clipPath="url(#windowClip)">
+                {[...Array(20)].map((_, i) => {
+                  const x = 25 + Math.random() * 50;
+                  const y = 25 + Math.random() * 75;
+                  const size = isMobile ? (1.5 + Math.random() * 1.5) : (1.2 + Math.random() * 1.2);
+                  return (
+                    <text
+                      key={`star-${i}`}
+                      x={x}
+                      y={y}
+                      fontSize={size}
+                      textAnchor="middle"
+                      className="animate-sparkle"
+                      style={{
+                        animationDelay: `${Math.random() * 1.5}s`,
+                        animationDuration: `${1 + Math.random() * 1}s`
+                      }}
+                    >
+                      ✨
+                    </text>
+                  );
+                })}
 
-                  {/* 눈송이들 */}
-                  {[...Array(15)].map((_, i) => {
-                    const size = 1 + Math.random() * 1;
-                    return (
-                      <div
-                        key={`snow-${i}`}
-                        className="animate-snowfall"
-                        style={{
-                          position: 'absolute',
-                          left: `${Math.random() * 100}%`,
-                          top: `-10%`,
-                          fontSize: isMobile ? `${size * 0.8}em` : `${size}px`,
-                          animationDelay: `${Math.random() * 1.5}s`,
-                          animationDuration: `${2 + Math.random() * 2}s`
-                        }}
-                      >
-                        ❄️
-                      </div>
-                    );
-                  })}
-                </div>
-              </foreignObject>
+                {/* 눈송이들 */}
+                {[...Array(15)].map((_, i) => {
+                  const x = 25 + Math.random() * 50;
+                  const startY = 20;
+                  const size = isMobile ? (1.8 + Math.random() * 1.8) : (1.5 + Math.random() * 1.5);
+                  return (
+                    <text
+                      key={`snow-${i}`}
+                      x={x}
+                      y={startY}
+                      fontSize={size}
+                      textAnchor="middle"
+                      className="animate-snowfall-svg"
+                      style={{
+                        animationDelay: `${Math.random() * 1.5}s`,
+                        animationDuration: `${2 + Math.random() * 2}s`
+                      }}
+                    >
+                      ❄️
+                    </text>
+                  );
+                })}
+              </g>
             </>
           )}
 
@@ -262,6 +248,17 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
           }
         }
 
+        @keyframes snowfallSvg {
+          0% {
+            transform: translateY(0px) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100px) rotate(360deg);
+            opacity: 0.3;
+          }
+        }
+
         .animate-scaleIn {
           animation: scaleIn 0.3s ease-out forwards;
         }
@@ -276,6 +273,10 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
 
         .animate-snowfall {
           animation: snowfall infinite linear;
+        }
+
+        .animate-snowfall-svg {
+          animation: snowfallSvg infinite linear;
         }
       `}</style>
     </div>
