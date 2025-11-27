@@ -37,7 +37,7 @@ export default function RollingPaperTree() {
   const treeRows = getTreeRows(messages);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 w-full">
+    <div className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950 w-full">
       <Header
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
@@ -96,6 +96,36 @@ export default function RollingPaperTree() {
         {/* 메시지 상세 모달 */}
         <ReadMessageModal message={selectedMessage} onClose={handleCloseMessage} />
       </div>
+
+      {/* 눈 내리는 효과 */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-white/30 animate-fall"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+              fontSize: `${10 + Math.random() * 10}px`,
+            }}
+          >
+            ❄
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes fall {
+          to {
+            transform: translateY(100vh);
+          }
+        }
+        .animate-fall {
+          animation: fall linear infinite;
+        }
+      `}</style>
     </div>
   );
 }

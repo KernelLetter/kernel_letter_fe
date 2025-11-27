@@ -25,7 +25,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950 flex flex-col">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
@@ -87,6 +87,36 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* 눈 내리는 효과 */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-white/30 animate-fall"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+              fontSize: `${10 + Math.random() * 10}px`,
+            }}
+          >
+            ❄
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes fall {
+          to {
+            transform: translateY(100vh);
+          }
+        }
+        .animate-fall {
+          animation: fall linear infinite;
+        }
+      `}</style>
     </div>
   );
 }
