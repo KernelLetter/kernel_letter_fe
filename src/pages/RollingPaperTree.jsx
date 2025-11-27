@@ -37,7 +37,7 @@ export default function RollingPaperTree() {
   const treeRows = getTreeRows(messages);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950 w-full">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 w-full">
       <Header
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}

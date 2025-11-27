@@ -25,7 +25,7 @@ export default function Index() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 flex flex-col">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
@@ -34,13 +34,13 @@ export default function Index() {
           <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-6">
             ⭐
           </div>
-          <p className="text-xs sm:text-sm md:text-base tracking-widest text-yellow-400 mb-2">
+          <p className="text-xs sm:text-sm md:text-base tracking-widest text-green-800 mb-2">
             Fast Campus
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-yellow-400 drop-shadow-md mb-3 sm:mb-4">
             Kernel Letter
           </h1>
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-wider text-yellow-400">
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-wider text-green-800">
             & HAPPY NEW YEAR
           </p>
         </div>
@@ -71,11 +71,11 @@ export default function Index() {
           </div>
         ) : (
           <div className="text-center">
-            <p className="text-white/70 text-sm sm:text-base mb-4">
+            <p className="text-white text-sm sm:text-base mb-4">
               로그인 후 이용할 수 있습니다
             </p>
             <div className="text-yellow-400 text-xs sm:text-sm">
-              👆 상단의 로그인 버튼을 클릭해주세요
+              상단의 로그인 버튼을 클릭해주세요
             </div>
           </div>
         )}
