@@ -84,7 +84,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
                         position: 'absolute',
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
-                        fontSize: `${0.8 + Math.random() * 1.2}px`,
+                        fontSize: `${1.5 + Math.random() * 2}em`,
                         animationDelay: `${Math.random() * 1.5}s`,
                         animationDuration: `${1 + Math.random() * 1}s`
                       }}
@@ -102,7 +102,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
                         position: 'absolute',
                         left: `${Math.random() * 100}%`,
                         top: `-10%`,
-                        fontSize: `${1 + Math.random() * 1}px`,
+                        fontSize: `${1.2 + Math.random() * 1.5}em`,
                         animationDelay: `${Math.random() * 1.5}s`,
                         animationDuration: `${2 + Math.random() * 2}s`
                       }}
