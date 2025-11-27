@@ -7,7 +7,12 @@ import WindowNode from './WindowNode';
  * @param {Function} onUserClick - 사용자 클릭 핸들러
  */
 export default function ChristmasBuilding({ users, onUserClick }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
 
   useEffect(() => {
     const checkMobile = () => {
@@ -23,7 +28,7 @@ export default function ChristmasBuilding({ users, onUserClick }) {
     <div className="w-full h-full relative">
       <svg
         className="w-full h-full min-h-[750px] md:min-h-0"
-        viewBox="0 0 100 100"
+        viewBox={isMobile ? "18 0 64 92" : "0 0 100 100"}
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
