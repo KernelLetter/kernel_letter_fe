@@ -89,8 +89,23 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
               />
 
               {/* 별들과 눈송이를 SVG 내부에 foreignObject로 */}
-              <foreignObject x="25" y="25" width="50" height="75" clipPath="url(#windowClip)">
-                <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden' }}>
+              <foreignObject
+                x="25"
+                y="25"
+                width="50"
+                height="75"
+                clipPath="url(#windowClip)"
+              >
+                <div
+                  xmlns="http://www.w3.org/1999/xhtml"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxSizing: 'border-box'
+                  }}
+                >
                   {/* 반짝이는 별들 */}
                   {[...Array(20)].map((_, i) => {
                     const size = 0.8 + Math.random() * 1.2;
@@ -102,7 +117,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
                           position: 'absolute',
                           left: `${Math.random() * 100}%`,
                           top: `${Math.random() * 100}%`,
-                          fontSize: isMobile ? `${size * 2}em` : `${size}px`,
+                          fontSize: isMobile ? `${size * 0.8}em` : `${size}px`,
                           animationDelay: `${Math.random() * 1.5}s`,
                           animationDuration: `${1 + Math.random() * 1}s`
                         }}
@@ -123,7 +138,7 @@ export default function WindowOpeningModal({ isOpen, onAnimationComplete, nextPa
                           position: 'absolute',
                           left: `${Math.random() * 100}%`,
                           top: `-10%`,
-                          fontSize: isMobile ? `${size * 2}em` : `${size}px`,
+                          fontSize: isMobile ? `${size * 0.8}em` : `${size}px`,
                           animationDelay: `${Math.random() * 1.5}s`,
                           animationDuration: `${2 + Math.random() * 2}s`
                         }}
