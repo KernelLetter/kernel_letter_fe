@@ -34,13 +34,13 @@ export default function Index() {
           <div className="text-5xl sm:text-6xl md:text-7xl mb-4 sm:mb-6">
             ⭐
           </div>
-          <p className="text-xs sm:text-sm md:text-base tracking-widest text-yellow-400 mb-2">
+          <p className="text-xs sm:text-sm md:text-base tracking-widest text-green-800 mb-2">
             Fast Campus
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-yellow-400 drop-shadow-md mb-3 sm:mb-4">
             Kernel Letter
           </h1>
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-wider text-yellow-400">
+          <p className="text-[10px] sm:text-xs md:text-sm tracking-wider text-green-800">
             & HAPPY NEW YEAR
           </p>
         </div>
@@ -58,24 +58,24 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md px-4">
             <button
               onClick={handleWriteClick}
-              className="flex-1 py-3 sm:py-4 bg-yellow-400 text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-yellow-500 transition-all hover:scale-105 shadow-lg"
+              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-300 transition-all hover:scale-105 shadow-lg"
             >
               📝 롤링페이퍼 작성하기
             </button>
             <button
               onClick={handleViewClick}
-              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-100 transition-all hover:scale-105 shadow-lg"
+              className="flex-1 py-3 sm:py-4 bg-white text-gray-900 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-300 transition-all hover:scale-105 shadow-lg"
             >
               📋 작성한 내용 확인하기
             </button>
           </div>
         ) : (
           <div className="text-center">
-            <p className="text-white/70 text-sm sm:text-base mb-4">
+            <p className="text-white text-sm sm:text-base mb-4">
               로그인 후 이용할 수 있습니다
             </p>
             <div className="text-yellow-400 text-xs sm:text-sm">
-              👆 상단의 로그인 버튼을 클릭해주세요
+              상단의 로그인 버튼을 클릭해주세요
             </div>
           </div>
         )}
@@ -87,6 +87,36 @@ export default function Index() {
           </div>
         </div>
       </div>
+
+      {/* 눈 내리는 효과 */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-white/30 animate-fall"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+              fontSize: `${10 + Math.random() * 10}px`,
+            }}
+          >
+            ❄
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes fall {
+          to {
+            transform: translateY(100vh);
+          }
+        }
+        .animate-fall {
+          animation: fall linear infinite;
+        }
+      `}</style>
     </div>
   );
 }

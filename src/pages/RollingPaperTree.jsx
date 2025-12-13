@@ -96,6 +96,36 @@ export default function RollingPaperTree() {
         {/* 메시지 상세 모달 */}
         <ReadMessageModal message={selectedMessage} onClose={handleCloseMessage} />
       </div>
+
+      {/* 눈 내리는 효과 */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-white/30 animate-fall"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${5 + Math.random() * 10}s`,
+              fontSize: `${10 + Math.random() * 10}px`,
+            }}
+          >
+            ❄
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        @keyframes fall {
+          to {
+            transform: translateY(100vh);
+          }
+        }
+        .animate-fall {
+          animation: fall linear infinite;
+        }
+      `}</style>
     </div>
   );
 }

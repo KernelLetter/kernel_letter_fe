@@ -5,10 +5,12 @@ import UserList from './pages/UserList'
 import UserListV2 from './pages/UserListV2'
 import UserListV3 from './pages/UserListV3'
 import RollingPaperTree from './pages/RollingPaperTree'
+import BackgroundMusic from './components/BackgroundMusic'
 
 function App() {
   return (
     <Router>
+      <BackgroundMusic />
       <Routes>
         <Route path="/" element={<Index />} />
         {/* <Route path="/users" element={<UserList />} /> */}
