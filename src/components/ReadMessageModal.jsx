@@ -32,11 +32,7 @@ export default function ReadMessageModal({ message, onClose }) {
         </p>
         <button
           onClick={onClose}
-<<<<<<< HEAD
           className="w-full py-2.5 sm:py-3 bg-white text-gray-900 rounded-lg text-sm cursor-pointer hover:bg-gray-100 transition-colors font-medium border-0"
-=======
-          className="w-full py-2.5 sm:py-3 bg-yellow-400 text-gray-900 rounded-lg text-sm cursor-pointer hover:bg-yellow-500 transition-colors font-medium border-0"
->>>>>>> origin/main
         >
           닫기
         </button>
