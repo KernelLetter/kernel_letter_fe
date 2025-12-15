@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
+import apiClient from '../lib/apiClient';
 
 export default function Index() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userName, setUserName] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data } = await apiClient.get('/api/user/me');
+        setIsLoggedIn(true);
+        setUserName(data?.name || '사용자');
+      } catch (error) {
+        setIsLoggedIn(false);
+        setUserName('');
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleWriteClick = () => {
     if (!isLoggedIn) {
@@ -26,7 +42,12 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 flex flex-col">
-      <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Header
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        userName={userName}
+        setUserName={setUserName}
+      />
 
       <div className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         {/* 메인 타이틀 */}

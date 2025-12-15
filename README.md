@@ -1,3 +1,10 @@
+# Kernel Letter FE
+
+## 환경 변수
+- `.env` 파일을 만들고 아래 값을 채워주세요 (예시는 `.env.example` 참고).
+  - `VITE_KAKAO_AUTH_URL`: 카카오 인가 URL (`https://kauth.kakao.com/oauth/authorize?...`)
+  - `VITE_API_BASE_URL`: 백엔드 API 베이스 URL (기본 `http://localhost:8080`)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
