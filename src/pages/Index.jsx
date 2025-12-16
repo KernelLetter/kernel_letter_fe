@@ -58,7 +58,10 @@ export default function Index() {
           <p className="text-xs sm:text-sm md:text-base tracking-widest text-green-800 mb-2">
             Fast Campus
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-yellow-400 drop-shadow-md mb-3 sm:mb-4">
+          <h1
+            className="text-4xl sm:text-5xl md:text-6xl font-serif italic text-yellow-400 drop-shadow-md mb-3 sm:mb-4"
+            style={{ fontFamily: 'KkuBulLim, serif' }}
+          >
             Kernel Letter
           </h1>
           <p className="text-[10px] sm:text-xs md:text-sm tracking-wider text-green-800">

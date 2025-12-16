@@ -44,7 +44,10 @@ export default function UserListV3() {
         {/* 타이틀 */}
         <div className="text-center mb-1 sm:mb-8 mt-0 sm:mt-4">
           <div className="text-2xl sm:text-4xl mb-0.5 sm:mb-3">🏠</div>
-          <h1 className="text-xs sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-0.5 sm:mb-2 whitespace-nowrap">
+          <h1
+            className="text-xs sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-0.5 sm:mb-2 whitespace-nowrap"
+            style={{ fontFamily: 'KkuBulLim, serif' }}
+          >
             크리스마스 하우스
           </h1>
           <p className="text-white/70 text-sl sm:text-base">

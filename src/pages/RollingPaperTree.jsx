@@ -68,19 +68,31 @@ export default function RollingPaperTree() {
 
         {/* 메시지 텍스트 */}
         <div className="mt-6 sm:mt-8 md:mt-10 text-center text-yellow-400">
-          <p className="text-xs sm:text-sm md:text-base tracking-widest m-0">
+          <p
+            className="text-xs sm:text-sm md:text-base tracking-widest m-0"
+            style={{ fontFamily: 'KkuBulLim, sans-serif' }}
+          >
             Fast Campus
           </p>
-          <p className="text-3xl sm:text-4xl md:text-5xl font-serif italic m-0 drop-shadow-md">
+          <p
+            className="text-3xl sm:text-4xl md:text-5xl font-serif italic m-0 drop-shadow-md"
+            style={{ fontFamily: 'KkuBulLim, serif' }}
+          >
             Kernel Letter
           </p>
-          <p className="text-[10px] sm:text-xs md:text-sm tracking-wider mt-1 sm:mt-2">
+          <p
+            className="text-[10px] sm:text-xs md:text-sm tracking-wider mt-1 sm:mt-2"
+            style={{ fontFamily: 'KkuBulLim, sans-serif' }}
+          >
             & HAPPY NEW YEAR
           </p>
         </div>
 
         {/* 받은 메시지 수 */}
-        <div className="mt-4 sm:mt-5 md:mt-6 px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 bg-white/10 rounded-full text-white text-xs sm:text-sm">
+        <div
+          className="mt-4 sm:mt-5 md:mt-6 px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 bg-white/10 rounded-full text-white text-xs sm:text-sm"
+          style={{ fontFamily: 'KkuBulLim, sans-serif' }}
+        >
           총 {Object.keys(messages).length}개의 메시지를 받았어요! 💌
         </div>
 

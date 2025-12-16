@@ -38,6 +38,7 @@ export default function Header({ isLoggedIn, setIsLoggedIn, userName, setUserNam
         <div
           onClick={() => navigate('/')}
           className="text-yellow-400 font-serif text-xl sm:text-2xl md:text-3xl italic cursor-pointer hover:text-yellow-300 transition-colors"
+          style={{ fontFamily: 'KkuBulLim, serif' }}
         >
           Kernel Letter
         </div>
