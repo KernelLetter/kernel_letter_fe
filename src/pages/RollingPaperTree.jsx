@@ -13,7 +13,7 @@ export default function RollingPaperTree() {
   const { userId } = useParams();
   const location = useLocation();
 
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName, userId: loggedInUserId } = useAuth();
 
   // 페이지 주인 정보 관리
   const { pageOwner, isPageOwner: checkIsPageOwner } = usePageOwner(userId, location.state);
@@ -31,7 +31,7 @@ export default function RollingPaperTree() {
     handleReadMessage,
     handleCloseMessage,
     updateMessageContent,
-  } = useMessages();
+  } = useMessages(pageOwner, loggedInUserId);
 
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);

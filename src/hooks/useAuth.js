@@ -8,6 +8,7 @@ import apiClient from '../lib/apiClient';
 export const useAuth = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -15,9 +16,11 @@ export const useAuth = () => {
         const { data } = await apiClient.get('/api/user/me');
         setIsLoggedIn(true);
         setUserName(data?.name || '사용자');
+        setUserId(data?.id || null);
       } catch (error) {
         setIsLoggedIn(false);
         setUserName('');
+        setUserId(null);
       }
     };
     fetchUser();
@@ -28,5 +31,7 @@ export const useAuth = () => {
     setIsLoggedIn,
     userName,
     setUserName,
+    userId,
+    setUserId,
   };
 };

@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { getRandomYellowColor } from '../utils/treeUtils';
+import apiClient from '../lib/apiClient';
 
 /**
  * 메시지 상태 관리를 위한 커스텀 훅
+ * @param {string} receiverName - 받는 사람 이름
+ * @param {number} senderId - 보내는 사람 ID
  * @returns {Object} 메시지 관련 상태와 핸들러 함수들
  */
-export const useMessages = () => {
+export const useMessages = (receiverName, senderId) => {
   // 위치별 메시지 저장 (position index -> message)
   const [messages, setMessages] = useState({});
 
@@ -38,26 +41,45 @@ export const useMessages = () => {
   /**
    * 편지 작성 완료
    */
-  const handleSubmitMessage = () => {
+  const handleSubmitMessage = async () => {
     if (!newMessage.content.trim()) {
       alert('메시지를 입력해주세요!');
       return;
     }
 
-    const messageData = {
-      author: newMessage.author.trim() || '익명',
-      content: newMessage.content.trim(),
-      color: getRandomYellowColor(),
-    };
+    if (!senderId) {
+      alert('로그인 정보를 확인할 수 없습니다. 다시 로그인해주세요.');
+      return;
+    }
 
-    setMessages({
-      ...messages,
-      [writingPosition]: messageData,
-    });
+    try {
+      // 서버로 편지 데이터 전송
+      await apiClient.post('/Letter', {
+        senderId: senderId,
+        receiverName: receiverName,
+        content: newMessage.content.trim(),
+        position: writingPosition,
+      });
 
-    setIsWriting(false);
-    setWritingPosition(null);
-    setNewMessage({ author: '', content: '' });
+      // 성공 시 로컬 state에도 저장 (UI 업데이트용)
+      const messageData = {
+        author: newMessage.author.trim() || '익명',
+        content: newMessage.content.trim(),
+        color: getRandomYellowColor(),
+      };
+
+      setMessages({
+        ...messages,
+        [writingPosition]: messageData,
+      });
+
+      setIsWriting(false);
+      setWritingPosition(null);
+      setNewMessage({ author: '', content: '' });
+    } catch (error) {
+      console.error('편지 전송 실패:', error);
+      alert('편지 전송에 실패했습니다. 다시 시도해주세요.');
+    }
   };
 
   /**
