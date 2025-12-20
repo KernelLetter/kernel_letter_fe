@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getRandomYellowColor } from '../utils/treeUtils';
 import apiClient from '../lib/apiClient';
 
@@ -11,6 +11,34 @@ import apiClient from '../lib/apiClient';
 export const useMessages = (receiverName, senderId) => {
   // 위치별 메시지 저장 (position index -> message)
   const [messages, setMessages] = useState({});
+
+  // 컴포넌트 로드 시 편지 목록 가져오기
+  useEffect(() => {
+    const fetchMessages = async () => {
+      if (!receiverName) return;
+
+      try {
+        const { data } = await apiClient.get(`/api/Letter/${receiverName}/all`);
+
+        // API 응답을 position을 key로 하는 객체로 변환
+        const messagesMap = {};
+        data.forEach((letter) => {
+          messagesMap[letter.position] = {
+            author: letter.senderName || '익명',
+            content: letter.content,
+            color: getRandomYellowColor(),
+          };
+        });
+
+        setMessages(messagesMap);
+      } catch (error) {
+        console.error('편지 목록 불러오기 실패:', error);
+        // 에러 발생 시 빈 객체 유지
+      }
+    };
+
+    fetchMessages();
+  }, [receiverName]);
 
   // 선택된 메시지 (읽기용)
   const [selectedMessage, setSelectedMessage] = useState(null);
