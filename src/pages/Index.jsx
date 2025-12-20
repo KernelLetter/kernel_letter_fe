@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
-import apiClient from '../lib/apiClient';
+import { useAuth } from '../hooks/useAuth';
 
 export default function Index() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const { data } = await apiClient.get('/api/user/me');
-        setIsLoggedIn(true);
-        setUserName(data?.name || '사용자');
-      } catch (error) {
-        setIsLoggedIn(false);
-        setUserName('');
-      }
-    };
-    fetchUser();
-  }, []);
 
   const handleWriteClick = () => {
     if (!isLoggedIn) {

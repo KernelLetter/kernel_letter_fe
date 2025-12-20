@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import ChristmasTree from '../components/ChristmasTree';
 import { useTreePositioning } from '../hooks/useTreePositioning';
+import { useAuth } from '../hooks/useAuth';
 
 export default function UserListV2() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userName, setUserName] = useState('사용자');
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
 
   // 커스텀 훅으로 트리 형태의 사용자 위치 계산
   const users = useTreePositioning();
