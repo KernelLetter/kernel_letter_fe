@@ -4,11 +4,11 @@ import Header from '../components/Header';
 import ChristmasBuilding from '../components/ChristmasBuilding';
 import WindowOpeningModal from '../components/WindowOpeningModal';
 import { useBuildingPositioning } from '../hooks/useBuildingPositioning';
+import { useAuth } from '../hooks/useAuth';
 
 export default function UserListV3() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userName, setUserName] = useState('사용자');
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 

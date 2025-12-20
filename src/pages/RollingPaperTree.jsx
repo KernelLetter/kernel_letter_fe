@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import TreeGrid from '../components/TreeGrid';
@@ -7,13 +7,13 @@ import ReadMessageModal from '../components/ReadMessageModal';
 import { usePageOwner } from '../hooks/usePageOwner';
 import { useMessages } from '../hooks/useMessages';
 import { getTreeRows } from '../utils/treeUtils';
+import { useAuth } from '../hooks/useAuth';
 
 export default function RollingPaperTree() {
   const { userId } = useParams();
   const location = useLocation();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
 
   // 페이지 주인 정보 관리
   const { pageOwner, isPageOwner: checkIsPageOwner } = usePageOwner(userId, location.state);
