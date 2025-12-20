@@ -54,7 +54,7 @@ export const useMessages = (receiverName, senderId) => {
 
     try {
       // 서버로 편지 데이터 전송
-      await apiClient.post('/Letter', {
+      await apiClient.post('/api/Letter', {
         senderId: senderId,
         receiverName: receiverName,
         content: newMessage.content.trim(),
