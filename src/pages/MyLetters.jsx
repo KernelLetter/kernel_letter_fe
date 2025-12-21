@@ -92,7 +92,7 @@ export default function MyLetters() {
                   transition-all duration-300
                   hover:scale-105 hover:shadow-xl
                   flex flex-col items-center justify-center
-                  min-h-[180px] sm:min-h-[200px]
+                  min-h-[150px] sm:min-h-[160px]
                   border-2 border-gray-200
                 `}
               >
@@ -100,7 +100,7 @@ export default function MyLetters() {
                 <img
                   src={`/letterImg/letter_${(index % 8) + 1}.png`}
                   alt="편지 봉투"
-                  className="w-20 h-20 sm:w-24 sm:h-24 mb-3 object-contain"
+                  className="w-30 h-30 mb-3 object-contain"
                 />
 
                 {/* 받는 사람 이름 */}
