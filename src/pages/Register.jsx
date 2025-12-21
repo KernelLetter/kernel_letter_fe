@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import apiClient from '../lib/apiClient';
 import { useAuth } from '../hooks/useAuth';
 
@@ -125,6 +126,9 @@ export default function Register() {
           animation: fall linear infinite;
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

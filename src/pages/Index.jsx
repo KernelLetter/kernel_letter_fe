@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -126,6 +127,9 @@ export default function Index() {
           animation: fall linear infinite;
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

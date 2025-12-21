@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ChristmasBuilding from '../components/ChristmasBuilding';
 import WindowOpeningModal from '../components/WindowOpeningModal';
 import { useBuildingPositioning } from '../hooks/useBuildingPositioning';
@@ -107,6 +108,9 @@ export default function UserListV3() {
         onAnimationComplete={handleAnimationComplete}
         nextPageUrl={selectedUser ? `/tree/${selectedUser.userId}` : ''}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
