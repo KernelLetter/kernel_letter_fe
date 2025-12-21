@@ -96,8 +96,12 @@ export default function MyLetters() {
                   border-2 border-gray-200
                 `}
               >
-                {/* 편지 봉투 아이콘 */}
-                <div className="text-4xl sm:text-5xl mb-3">💌</div>
+                {/* 편지 봉투 이미지 */}
+                <img
+                  src={`/letterImg/letter_${(index % 8) + 1}.png`}
+                  alt="편지 봉투"
+                  className="w-20 h-20 sm:w-24 sm:h-24 mb-3 object-contain"
+                />
 
                 {/* 받는 사람 이름 */}
                 <div className="text-center">
