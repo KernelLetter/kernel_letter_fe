@@ -60,7 +60,10 @@ export default function MyLetters() {
         {/* 타이틀 */}
         <div className="text-center mb-6 sm:mb-8 mt-4">
           <div className="text-3xl sm:text-4xl mb-3">📬</div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-2">
+          <h1
+            className="text-2xl sm:text-3xl md:text-4xl font-serif italic text-yellow-400 mb-2"
+            style={{ fontFamily: 'KkuBulLim, serif' }}
+          >
             작성한 편지
           </h1>
           <p className="text-white/70 text-xs sm:text-sm">

@@ -25,6 +25,7 @@ export default function WriteMessageModal({
       <div
         onClick={(e) => e.stopPropagation()}
         className="bg-white rounded-xl p-6 sm:p-8 max-w-[350px] sm:max-w-[400px] w-full shadow-2xl"
+        style={{ fontFamily: 'KkuBulLim, sans-serif' }}
       >
         <h3 className="text-lg sm:text-xl font-bold mb-4 text-gray-800">
           편지 작성하기
