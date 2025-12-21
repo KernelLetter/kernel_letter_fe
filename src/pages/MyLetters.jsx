@@ -18,7 +18,7 @@ export default function MyLetters() {
       if (!userId) return;
 
       try {
-        const { data } = await apiClient.get(`/api/send/${userId}/all`);
+        const { data } = await apiClient.get(`/api/Letter/send/${userId}/all`);
         setLetters(data);
       } catch (error) {
         console.error('작성한 편지 목록 불러오기 실패:', error);
