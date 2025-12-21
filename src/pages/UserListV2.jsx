@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ChristmasTree from '../components/ChristmasTree';
 import { useTreePositioning } from '../hooks/useTreePositioning';
 import { useAuth } from '../hooks/useAuth';
@@ -80,6 +81,9 @@ export default function UserListV2() {
           animation: fall linear infinite;
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import TreeGrid from '../components/TreeGrid';
 import WriteMessageModal from '../components/WriteMessageModal';
 import ReadMessageModal from '../components/ReadMessageModal';
@@ -142,6 +143,9 @@ export default function RollingPaperTree() {
           animation: fall linear infinite;
         }
       `}</style>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
