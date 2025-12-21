@@ -46,6 +46,7 @@ export default function TreeGrid({
                 key={`message-${position}`}
                 message={message}
                 rotationClass={rotationClass}
+                isPageOwner={isPageOwner}
                 onClick={onMessageCardClick}
               />
             );

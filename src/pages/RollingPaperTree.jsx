@@ -106,7 +106,11 @@ export default function RollingPaperTree() {
         />
 
         {/* 메시지 상세 모달 */}
-        <ReadMessageModal message={selectedMessage} onClose={handleCloseMessage} />
+        <ReadMessageModal
+          message={selectedMessage}
+          isPageOwner={isPageOwner}
+          onClose={handleCloseMessage}
+        />
       </div>
 
       {/* 눈 내리는 효과 */}

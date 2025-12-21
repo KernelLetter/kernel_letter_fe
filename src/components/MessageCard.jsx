@@ -4,9 +4,10 @@ import React from 'react';
  * 개별 메시지 카드 컴포넌트
  * @param {Object} message - 메시지 객체 (author, content, color)
  * @param {string} rotationClass - 회전 클래스명
+ * @param {boolean} isPageOwner - 페이지 주인 여부
  * @param {Function} onClick - 클릭 핸들러
  */
-export default function MessageCard({ message, rotationClass, onClick }) {
+export default function MessageCard({ message, rotationClass, isPageOwner, onClick }) {
   return (
     <div
       onClick={() => onClick(message)}
@@ -30,9 +31,16 @@ export default function MessageCard({ message, rotationClass, onClick }) {
           bg-white/50
         "
       >
-        {message.content.length > 20
-          ? message.content.substring(0, 20) + '...'
-          : message.content}
+        {isPageOwner ? (
+          message.content.length > 20
+            ? message.content.substring(0, 20) + '...'
+            : message.content
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-0.5">
+            <span className="text-base sm:text-lg">💌</span>
+            <span className="text-[6px] sm:text-[7px]">편지 도착!</span>
+          </div>
+        )}
       </div>
     </div>
   );
