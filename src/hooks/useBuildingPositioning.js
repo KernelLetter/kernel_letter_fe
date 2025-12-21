@@ -19,7 +19,8 @@ export const useBuildingPositioning = () => {
     const centerX = 50;
 
     // 각 층의 설정 (Y 좌표, 창문 수)
-    // 총 38명 = 4+6+6+6+6+5+5 (7층 건물)
+    // 총 40명 = 4+6+6+6+6+6+6 (7층 건물)
+    // 층간 간격: 10으로 동일
     const floorConfigs = [
       // 아래층부터 위로 (1층이 가장 아래)
       { y: 78, windows: 4 },   // 1층 (지상층)
@@ -27,8 +28,8 @@ export const useBuildingPositioning = () => {
       { y: 58, windows: 6 },   // 3층
       { y: 48, windows: 6 },   // 4층
       { y: 38, windows: 6 },   // 5층
-      { y: 28, windows: 5 },   // 6층
-      { y: 20, windows: 5 },   // 7층 (최상층)
+      { y: 28, windows: 6 },   // 6층
+      { y: 18, windows: 6 },   // 7층 (최상층)
     ];
 
     let userIndex = 0;

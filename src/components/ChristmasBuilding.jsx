@@ -146,16 +146,6 @@ export default function ChristmasBuilding({ users, onUserClick }) {
         {users.map((user) => (
           <WindowNode key={user.id} user={user} onClick={onUserClick} />
         ))}
-
-        {/* 건물 하이라이트 효과 */}
-        <rect
-          x="20"
-          y="10"
-          width="3"
-          height="70"
-          fill="rgba(255, 255, 255, 0.1)"
-          pointerEvents="none"
-        />
       </svg>
 
       {/* 모바일에서 트리와 선물 숨기기 */}
