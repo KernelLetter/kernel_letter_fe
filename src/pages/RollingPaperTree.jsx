@@ -36,6 +36,7 @@ export default function RollingPaperTree() {
 
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);
+  const ownerDisplayName = pageOwner || '페이지 주인';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 w-full">
@@ -94,7 +95,7 @@ export default function RollingPaperTree() {
           className="mt-4 sm:mt-5 md:mt-6 px-4 sm:px-5 md:px-6 py-1.5 sm:py-2 bg-white/10 rounded-full text-white text-xs sm:text-sm"
           style={{ fontFamily: 'KkuBulLim, sans-serif' }}
         >
-          총 {Object.keys(messages).length}개의 메시지를 받았어요! 💌
+          {ownerDisplayName}님은 총 {Object.keys(messages).length}개의 메시지를 받았어요! 💌
         </div>
 
         {/* 메시지 작성 모달 */}
