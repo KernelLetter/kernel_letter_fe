@@ -1,4 +1,5 @@
 import React from 'react';
+import { isLetterUnlocked } from '../utils/dateUtils';
 
 /**
  * 개별 메시지 카드 컴포넌트
@@ -8,6 +9,7 @@ import React from 'react';
  * @param {Function} onClick - 클릭 핸들러
  */
 export default function MessageCard({ message, rotationClass, isPageOwner, onClick }) {
+  const canViewLetter = isPageOwner && isLetterUnlocked();
   return (
     <div
       onClick={() => onClick(message)}
@@ -31,7 +33,7 @@ export default function MessageCard({ message, rotationClass, isPageOwner, onCli
           bg-white/50
         "
       >
-        {isPageOwner ? (
+        {canViewLetter ? (
           message.content.length > 20
             ? message.content.substring(0, 20) + '...'
             : message.content
