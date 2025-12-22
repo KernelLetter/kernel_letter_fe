@@ -33,7 +33,7 @@ export default function RollingPaperTree() {
     handleReadMessage,
     handleCloseMessage,
     updateMessageContent,
-  } = useMessages(pageOwner, loggedInUserId);
+  } = useMessages(pageOwner, loggedInUserId, userName);
 
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);

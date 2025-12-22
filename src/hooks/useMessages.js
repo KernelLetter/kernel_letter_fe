@@ -1,25 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getRandomYellowColor } from '../utils/treeUtils';
 import apiClient from '../lib/apiClient';
 
 // 메시지 작성 마감 시각 (KST)
-const SUBMIT_DEADLINE = new Date('2024-12-16T13:00:00+09:00');
+const SUBMIT_DEADLINE = new Date('2025-12-26T13:00:00+09:00');
+// 메시지 열람 제한 시각 (KST) - 이후에는 본인 페이지만 조회 가능
+const VIEW_RESTRICTION_TIME = new Date('2025-12-26T14:00:00+09:00');
 
 /**
  * 메시지 상태 관리를 위한 커스텀 훅
  * @param {string} receiverName - 받는 사람 이름
  * @param {number} senderId - 보내는 사람 ID
+ * @param {string} viewerName - 현재 로그인 사용자 이름
  * @returns {Object} 메시지 관련 상태와 핸들러 함수들
  */
-export const useMessages = (receiverName, senderId) => {
+export const useMessages = (receiverName, senderId, viewerName) => {
   // 위치별 메시지 저장 (position index -> message)
   const [messages, setMessages] = useState({});
   const isAfterDeadline = () => new Date() >= SUBMIT_DEADLINE;
+  const isAfterViewRestriction = () => new Date() >= VIEW_RESTRICTION_TIME;
+  const hasViewWarningShown = useRef(false);
 
   // 컴포넌트 로드 시 편지 목록 가져오기
   useEffect(() => {
     const fetchMessages = async () => {
       if (!receiverName) return;
+
+      // 12/16 14시 이후에는 본인 페이지만 조회 가능
+      if (
+        isAfterViewRestriction() &&
+        viewerName &&
+        receiverName &&
+        viewerName !== receiverName
+      ) {
+        if (!hasViewWarningShown.current) {
+          alert('본인 페이지의 메시지만 확인 가능합니다.');
+          hasViewWarningShown.current = true;
+        }
+        setMessages({});
+        return;
+      }
 
       try {
         const { data } = await apiClient.get(`/api/Letter/${receiverName}/all`);
@@ -42,7 +62,7 @@ export const useMessages = (receiverName, senderId) => {
     };
 
     fetchMessages();
-  }, [receiverName]);
+  }, [receiverName, viewerName]);
 
   // 선택된 메시지 (읽기용)
   const [selectedMessage, setSelectedMessage] = useState(null);
@@ -60,7 +80,7 @@ export const useMessages = (receiverName, senderId) => {
    */
   const handleEmptyCardClick = (position, userName, isPageOwner) => {
     if (isAfterDeadline()) {
-      alert('12월 16일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      alert('12월 26일 13시 이후에는 메시지를 작성할 수 없습니다.');
       return;
     }
 
@@ -80,7 +100,7 @@ export const useMessages = (receiverName, senderId) => {
    */
   const handleSubmitMessage = async () => {
     if (isAfterDeadline()) {
-      alert('12월 16일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      alert('12월 26일 13시 이후에는 메시지를 작성할 수 없습니다.');
       setIsWriting(false);
       return;
     }
