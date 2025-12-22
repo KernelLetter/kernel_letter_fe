@@ -17,6 +17,8 @@ export default function WriteMessageModal({
 }) {
   if (!isOpen) return null;
 
+  const contentLength = newMessage.content?.length || 0;
+
   return (
     <div
       onClick={onCancel}
@@ -41,15 +43,19 @@ export default function WriteMessageModal({
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label className="block text-sm text-gray-600 mb-2">메시지 *</label>
           <textarea
             value={newMessage.content}
-            onChange={(e) => onContentChange(e.target.value)}
+            onChange={(e) => onContentChange(e.target.value.slice(0, 150))}
             placeholder="따뜻한 메시지를 남겨주세요..."
             rows={4}
+            maxLength={150}
             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none"
           />
+          <div className="absolute right-2 bottom-2 text-xs text-gray-400">
+            {contentLength}/150자
+          </div>
         </div>
 
         <div className="flex gap-2">

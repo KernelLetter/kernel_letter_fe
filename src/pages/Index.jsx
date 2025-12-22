@@ -59,7 +59,7 @@ export default function Index() {
         <div className="text-center mb-8 sm:mb-10 md:mb-12 max-w-md">
           <p className="text-white text-sm sm:text-base leading-relaxed">
             소중한 사람들에게 마음을 전하세요.<br />
-            12월 26일 13시, 특별한 편지가 공개됩니다.
+            12월 26일 15시, 특별한 편지가 공개됩니다.
           </p>
         </div>
 
