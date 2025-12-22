@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import { getRandomYellowColor } from '../utils/treeUtils';
 import apiClient from '../lib/apiClient';
 
+// 메시지 작성 마감 시각 (KST)
+const SUBMIT_DEADLINE = new Date('2024-12-16T13:00:00+09:00');
+
 /**
  * 메시지 상태 관리를 위한 커스텀 훅
  * @param {string} receiverName - 받는 사람 이름
@@ -11,6 +14,7 @@ import apiClient from '../lib/apiClient';
 export const useMessages = (receiverName, senderId) => {
   // 위치별 메시지 저장 (position index -> message)
   const [messages, setMessages] = useState({});
+  const isAfterDeadline = () => new Date() >= SUBMIT_DEADLINE;
 
   // 컴포넌트 로드 시 편지 목록 가져오기
   useEffect(() => {
@@ -55,6 +59,11 @@ export const useMessages = (receiverName, senderId) => {
    * @param {boolean} isPageOwner - 페이지 주인 여부
    */
   const handleEmptyCardClick = (position, userName, isPageOwner) => {
+    if (isAfterDeadline()) {
+      alert('12월 16일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      return;
+    }
+
     // 페이지 주인은 편지를 쓸 수 없음
     if (isPageOwner) {
       return;
@@ -70,6 +79,12 @@ export const useMessages = (receiverName, senderId) => {
    * 편지 작성 완료
    */
   const handleSubmitMessage = async () => {
+    if (isAfterDeadline()) {
+      alert('12월 16일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      setIsWriting(false);
+      return;
+    }
+
     if (!newMessage.content.trim()) {
       alert('메시지를 입력해주세요!');
       return;
@@ -147,6 +162,7 @@ export const useMessages = (receiverName, senderId) => {
     selectedMessage,
     isWriting,
     newMessage,
+    isSubmissionClosed: isAfterDeadline(),
     handleEmptyCardClick,
     handleSubmitMessage,
     handleCancelWrite,

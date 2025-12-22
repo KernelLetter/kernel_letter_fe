@@ -26,6 +26,7 @@ export default function RollingPaperTree() {
     selectedMessage,
     isWriting,
     newMessage,
+    isSubmissionClosed,
     handleEmptyCardClick,
     handleSubmitMessage,
     handleCancelWrite,
@@ -102,6 +103,7 @@ export default function RollingPaperTree() {
         <WriteMessageModal
           isOpen={isWriting}
           newMessage={newMessage}
+          isSubmissionClosed={isSubmissionClosed}
           onContentChange={updateMessageContent}
           onSubmit={handleSubmitMessage}
           onCancel={handleCancelWrite}
