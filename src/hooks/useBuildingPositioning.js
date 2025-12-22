@@ -9,7 +9,12 @@ export const useBuildingPositioning = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const userCount = USER_NAMES.length;
+    // 가나다 순으로 정렬 후 (ㄱ이 가장 위층)
+    const sortedNames = [...USER_NAMES].sort((a, b) =>
+      a.localeCompare(b, 'ko-KR')
+    );
+
+    const userCount = sortedNames.length;
     const mockUsers = [];
 
     // 색상 배열 (크리스마스 컬러)
@@ -34,8 +39,9 @@ export const useBuildingPositioning = () => {
 
     let userIndex = 0;
 
-    // 층별로 사용자 배치
-    for (const config of floorConfigs) {
+    // 층별로 사용자 배치 (위층부터 아래층 순으로 배치)
+    const floorsTopToBottom = [...floorConfigs].reverse();
+    for (const config of floorsTopToBottom) {
       if (userIndex >= userCount) break;
 
       const windowsInFloor = Math.min(config.windows, userCount - userIndex);
@@ -59,7 +65,7 @@ export const useBuildingPositioning = () => {
 
         mockUsers.push({
           id: userIndex + 1,
-          name: USER_NAMES[userIndex],
+          name: sortedNames[userIndex],
           x: x,
           y: y,
           color: colors[userIndex % colors.length]

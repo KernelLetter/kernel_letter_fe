@@ -199,13 +199,19 @@ export default function MyLetters() {
 
             <div className="bg-yellow-50 rounded-lg p-4 sm:p-5 mb-4 min-h-[150px]">
               {isEditing ? (
-                <textarea
-                  value={editedContent}
-                  onChange={(e) => setEditedContent(e.target.value)}
-                  rows={6}
-                  className="w-full px-3 py-2 border border-yellow-200 rounded-lg text-sm sm:text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none bg-white"
-                  placeholder="편지 내용을 수정해주세요."
-                />
+                <div className="relative">
+                  <textarea
+                    value={editedContent}
+                    onChange={(e) => setEditedContent(e.target.value.slice(0, 150))}
+                    rows={6}
+                    maxLength={150}
+                    className="w-full px-3 py-2 border border-yellow-200 rounded-lg text-sm sm:text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none bg-white"
+                    placeholder="편지 내용을 수정해주세요."
+                  />
+                  <div className="absolute right-2 bottom-2 text-xs text-gray-400">
+                    {editedContent.length}/150자
+                  </div>
+                </div>
               ) : (
                 <p className="text-sm sm:text-base leading-relaxed text-gray-700 whitespace-pre-wrap">
                   {selectedLetter.content}
