@@ -11,6 +11,9 @@ export default function MyLetters() {
   const [letters, setLetters] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   // 작성한 편지 목록 가져오기
   useEffect(() => {
@@ -30,12 +33,16 @@ export default function MyLetters() {
 
   const handleCardClick = (letter) => {
     setSelectedLetter(letter);
+    setEditedContent(letter.content || '');
+    setIsEditing(false);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedLetter(null);
+    setIsEditing(false);
+    setEditedContent('');
   };
 
   // 편지 봉투 색상 배열
@@ -46,6 +53,60 @@ export default function MyLetters() {
     'bg-yellow-100',
     'bg-purple-100',
   ];
+
+  const handleEditStart = () => {
+    setIsEditing(true);
+  };
+
+  const handleEditCancel = () => {
+    setIsEditing(false);
+    setEditedContent(selectedLetter?.content || '');
+  };
+
+  const handleSaveEdit = async () => {
+    if (!editedContent.trim()) {
+      alert('편지 내용을 입력해주세요.');
+      return;
+    }
+
+    if (!userId) {
+      alert('로그인 정보를 확인할 수 없습니다. 다시 로그인해주세요.');
+      return;
+    }
+
+    const receiverName = selectedLetter?.receiverName;
+    if (!receiverName) {
+      alert('받는 사람 정보를 찾을 수 없습니다.');
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      await apiClient.patch(`/api/Letter/${receiverName}`, {
+        senderId: userId,
+        content: editedContent.trim(),
+      });
+
+      // 로컬 상태 업데이트로 즉시 반영
+      setLetters((prevLetters) =>
+        prevLetters.map((letter) =>
+          (letter.letterId || letter.id) === (selectedLetter?.letterId || selectedLetter?.id) ||
+          letter === selectedLetter
+            ? { ...letter, content: editedContent.trim() }
+            : letter
+        )
+      );
+      setSelectedLetter((prev) =>
+        prev ? { ...prev, content: editedContent.trim() } : prev
+      );
+      setIsEditing(false);
+    } catch (error) {
+      console.error('편지 수정 실패:', error);
+      alert('편지 수정에 실패했습니다. 다시 시도해주세요.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 flex flex-col">
@@ -137,21 +198,58 @@ export default function MyLetters() {
             </div>
 
             <div className="bg-yellow-50 rounded-lg p-4 sm:p-5 mb-4 min-h-[150px]">
-              <p className="text-sm sm:text-base leading-relaxed text-gray-700 whitespace-pre-wrap">
-                {selectedLetter.content}
-              </p>
+              {isEditing ? (
+                <textarea
+                  value={editedContent}
+                  onChange={(e) => setEditedContent(e.target.value)}
+                  rows={6}
+                  className="w-full px-3 py-2 border border-yellow-200 rounded-lg text-sm sm:text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none bg-white"
+                  placeholder="편지 내용을 수정해주세요."
+                />
+              ) : (
+                <p className="text-sm sm:text-base leading-relaxed text-gray-700 whitespace-pre-wrap">
+                  {selectedLetter.content}
+                </p>
+              )}
             </div>
 
             <p className="text-right text-gray-500 text-xs sm:text-sm mb-4">
               from. {selectedLetter.senderName || userName}
             </p>
 
-            <button
-              onClick={handleCloseModal}
-              className="w-full py-2.5 sm:py-3 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-800 transition-colors font-medium"
-            >
-              닫기
-            </button>
+            {isEditing ? (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleEditCancel}
+                  className="flex-1 py-2.5 sm:py-3 bg-gray-200 text-gray-800 rounded-lg text-sm hover:bg-gray-300 transition-colors font-medium"
+                  disabled={isSaving}
+                >
+                  취소
+                </button>
+                <button
+                  onClick={handleSaveEdit}
+                  className="flex-1 py-2.5 sm:py-3 bg-yellow-400 text-gray-900 rounded-lg text-sm hover:bg-yellow-300 transition-colors font-medium disabled:opacity-70"
+                  disabled={isSaving}
+                >
+                  {isSaving ? '저장 중...' : '저장'}
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-2">
+                <button
+                  onClick={handleEditStart}
+                  className="flex-1 py-2.5 sm:py-3 bg-white text-gray-900 rounded-lg text-sm hover:bg-gray-100 transition-colors font-medium"
+                >
+                  수정하기
+                </button>
+                <button
+                  onClick={handleCloseModal}
+                  className="flex-1 py-2.5 sm:py-3 bg-gray-900 text-white rounded-lg text-sm hover:bg-gray-800 transition-colors font-medium"
+                >
+                  닫기
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
