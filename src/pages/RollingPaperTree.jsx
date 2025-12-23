@@ -9,12 +9,21 @@ import { usePageOwner } from '../hooks/usePageOwner';
 import { useMessages } from '../hooks/useMessages';
 import { getTreeRows } from '../utils/treeUtils';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function RollingPaperTree() {
   const { userId } = useParams();
   const location = useLocation();
 
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName, userId: loggedInUserId } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    userId: loggedInUserId,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
 
   // 페이지 주인 정보 관리
   const { pageOwner, isPageOwner: checkIsPageOwner } = usePageOwner(userId, location.state);
@@ -26,13 +35,14 @@ export default function RollingPaperTree() {
     selectedMessage,
     isWriting,
     newMessage,
+    isSubmissionClosed,
     handleEmptyCardClick,
     handleSubmitMessage,
     handleCancelWrite,
     handleReadMessage,
     handleCloseMessage,
     updateMessageContent,
-  } = useMessages(pageOwner, loggedInUserId);
+  } = useMessages(pageOwner, loggedInUserId, userName);
 
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);
@@ -102,6 +112,7 @@ export default function RollingPaperTree() {
         <WriteMessageModal
           isOpen={isWriting}
           newMessage={newMessage}
+          isSubmissionClosed={isSubmissionClosed}
           onContentChange={updateMessageContent}
           onSubmit={handleSubmitMessage}
           onCancel={handleCancelWrite}

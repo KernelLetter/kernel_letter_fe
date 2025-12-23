@@ -4,10 +4,19 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { useAuth } from '../hooks/useAuth';
 import apiClient from '../lib/apiClient';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function MyLetters() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName, userId } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    userId,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
   const [letters, setLetters] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

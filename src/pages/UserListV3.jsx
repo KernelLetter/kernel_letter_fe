@@ -6,10 +6,18 @@ import ChristmasBuilding from '../components/ChristmasBuilding';
 import WindowOpeningModal from '../components/WindowOpeningModal';
 import { useBuildingPositioning } from '../hooks/useBuildingPositioning';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function UserListV3() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
