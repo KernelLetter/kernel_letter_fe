@@ -4,10 +4,18 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import apiClient from '../lib/apiClient';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function Register() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);

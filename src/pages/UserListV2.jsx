@@ -5,10 +5,18 @@ import Footer from '../components/Footer';
 import ChristmasTree from '../components/ChristmasTree';
 import { useTreePositioning } from '../hooks/useTreePositioning';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function UserListV2() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
 
   // 커스텀 훅으로 트리 형태의 사용자 위치 계산
   const users = useTreePositioning();

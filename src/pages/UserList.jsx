@@ -5,10 +5,18 @@ import Footer from '../components/Footer';
 import NetworkMap from '../components/NetworkMap';
 import { useUserPositioning } from '../hooks/useUserPositioning';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function UserList() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
 
   // 커스텀 훅으로 사용자 위치 계산
   const users = useUserPositioning();

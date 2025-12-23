@@ -9,12 +9,21 @@ import { usePageOwner } from '../hooks/usePageOwner';
 import { useMessages } from '../hooks/useMessages';
 import { getTreeRows } from '../utils/treeUtils';
 import { useAuth } from '../hooks/useAuth';
+import { useRedirectIfLoggedOut } from '../hooks/useRedirectIfLoggedOut';
 
 export default function RollingPaperTree() {
   const { userId } = useParams();
   const location = useLocation();
 
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName, userId: loggedInUserId } = useAuth();
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    userName,
+    setUserName,
+    userId: loggedInUserId,
+    isCheckingAuth,
+  } = useAuth();
+  useRedirectIfLoggedOut(isLoggedIn, isCheckingAuth);
 
   // 페이지 주인 정보 관리
   const { pageOwner, isPageOwner: checkIsPageOwner } = usePageOwner(userId, location.state);

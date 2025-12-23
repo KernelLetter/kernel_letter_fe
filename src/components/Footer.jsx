@@ -38,6 +38,9 @@ export default function Footer() {
         </div>
 
         {/* 저작권 */}
+                  <p className="text-white/30 text-xs mt-4">
+            본 페이지는 이벤트성 페이지로 수집된 사용자 정보와 메시지들은, 2025년 12월 30일 이후 모두 삭제됩니다.
+          </p>
         <p className="text-white/30 text-xs mt-4">
           © 2025 Fast Campus Kernel Letter. All rights reserved.
         </p>
