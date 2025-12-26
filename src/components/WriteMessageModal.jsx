@@ -38,7 +38,7 @@ export default function WriteMessageModal({
 
         {isSubmissionClosed && (
           <div className="mb-4 text-sm text-red-600">
-            12월 26일 13시 이후에는 메시지를 작성할 수 없습니다.
+            12월 26일 14시 50분 이후에는 메시지를 작성할 수 없습니다.
           </div>
         )}
 
