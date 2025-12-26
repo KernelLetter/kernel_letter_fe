@@ -3,7 +3,7 @@ import { getRandomYellowColor } from '../utils/treeUtils';
 import apiClient from '../lib/apiClient';
 
 // 메시지 작성 마감 시각 (KST)
-const SUBMIT_DEADLINE = new Date('2025-12-26T13:00:00+09:00');
+const SUBMIT_DEADLINE = new Date('2025-12-26T14:50:00+09:00');
 // 메시지 열람 제한 시각 (KST) - 이후에는 본인 페이지만 조회 가능
 const VIEW_RESTRICTION_TIME = new Date('2025-12-26T14:00:00+09:00');
 
