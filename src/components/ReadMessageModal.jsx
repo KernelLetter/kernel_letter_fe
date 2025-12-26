@@ -28,17 +28,24 @@ export default function ReadMessageModal({ message, isPageOwner, onClose }) {
                 rounded-lg p-4 sm:p-5 mb-4 min-h-[100px]
                 ${message.color}
               `}
+              style={{ fontFamily: 'KkuBulLim, sans-serif' }}
             >
               <p className="m-0 text-sm sm:text-base leading-relaxed text-gray-700">
                 {message.content}
               </p>
             </div>
-            <p className="text-right m-0 mb-4 text-gray-500 text-xs sm:text-sm">
+            <p
+              className="text-right m-0 mb-4 text-gray-500 text-xs sm:text-sm"
+              style={{ fontFamily: 'KkuBulLim, sans-serif' }}
+            >
               from. {message.author}
             </p>
           </>
         ) : (
-          <div className="text-center py-8">
+          <div
+            className="text-center py-8"
+            style={{ fontFamily: 'KkuBulLim, sans-serif' }}
+          >
             <div className="text-5xl mb-4">🔒</div>
             <p className="text-gray-700 text-base mb-2">
               이 편지는 12월 26일 15시에 공개됩니다
@@ -53,6 +60,7 @@ export default function ReadMessageModal({ message, isPageOwner, onClose }) {
         <button
           onClick={onClose}
           className="w-full py-2.5 sm:py-3 bg-white text-gray-900 rounded-lg text-sm cursor-pointer hover:bg-gray-100 transition-colors font-medium border-0"
+          style={{ fontFamily: 'KkuBulLim, sans-serif' }}
         >
           닫기
         </button>
