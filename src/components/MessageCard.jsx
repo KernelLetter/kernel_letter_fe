@@ -32,6 +32,7 @@ export default function MessageCard({ message, rotationClass, isPageOwner, onCli
           text-center text-gray-700 leading-tight
           bg-white/50
         "
+        style={{ fontFamily: 'KkuBulLim, sans-serif' }}
       >
         {canViewLetter ? (
           message.content.length > 20
