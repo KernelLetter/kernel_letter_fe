@@ -42,8 +42,8 @@ export const useMessages = (receiverName, senderId, viewerName) => {
       }
 
       try {
-        const { data } = await apiClient.get(`/api/Letter/${receiverName}/all`);
-        //const { data } = await apiClient.get(`/api/Letter/${receiverName}/user/${senderId}/all`);
+        //const { data } = await apiClient.get(`/api/Letter/${receiverName}/all`);
+        const { data } = await apiClient.get(`/api/Letter/${receiverName}/user/${senderId}/all`);
 
         // API 응답을 position을 key로 하는 객체로 변환
         const messagesMap = {};
