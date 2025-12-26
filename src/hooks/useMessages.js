@@ -26,7 +26,7 @@ export const useMessages = (receiverName, senderId, viewerName) => {
     const fetchMessages = async () => {
       if (!receiverName) return;
 
-      // 12/16 14시 이후에는 본인 페이지만 조회 가능
+      // 제한 시각 이후에는 본인 페이지만 조회 가능
       if (
         isAfterViewRestriction() &&
         viewerName &&
@@ -81,7 +81,7 @@ export const useMessages = (receiverName, senderId, viewerName) => {
    */
   const handleEmptyCardClick = (position, userName, isPageOwner) => {
     if (isAfterDeadline()) {
-      alert('12월 26일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      alert('12월 26일 14시 50분 이후에는 메시지를 작성할 수 없습니다.');
       return;
     }
 
@@ -101,7 +101,7 @@ export const useMessages = (receiverName, senderId, viewerName) => {
    */
   const handleSubmitMessage = async () => {
     if (isAfterDeadline()) {
-      alert('12월 26일 13시 이후에는 메시지를 작성할 수 없습니다.');
+      alert('12월 26일 14시 50분 이후에는 메시지를 작성할 수 없습니다.');
       setIsWriting(false);
       return;
     }
