@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -44,9 +44,56 @@ export default function RollingPaperTree() {
     updateMessageContent,
   } = useMessages(pageOwner, loggedInUserId, userName);
 
+  // 주마등 효과 상태
+  const [isFlashbackMode, setIsFlashbackMode] = useState(false);
+  const [currentFlashbackIndex, setCurrentFlashbackIndex] = useState(0);
+
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);
   const ownerDisplayName = pageOwner || '페이지 주인';
+
+  // 페이지 로드 시 주마등 효과 시작 (페이지 주인만)
+  useEffect(() => {
+    const messagesList = Object.entries(messages).sort(([a], [b]) => a - b).map(([_, msg]) => msg);
+
+    // 페이지 주인이고, 메시지가 있고, 아직 주마등 모드가 아닐 때
+    if (isPageOwner && messagesList.length > 0 && !isFlashbackMode) {
+      // 1초 딜레이 후 주마등 시작
+      const timer = setTimeout(() => {
+        setIsFlashbackMode(true);
+        setCurrentFlashbackIndex(0);
+        handleReadMessage(messagesList[0]);
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPageOwner, messages]);
+
+  // 주마등 모드 중 자동으로 다음 메시지로 전환
+  useEffect(() => {
+    if (!isFlashbackMode) return;
+
+    const messagesList = Object.entries(messages).sort(([a], [b]) => a - b).map(([_, msg]) => msg);
+
+    // 마지막 메시지면 3초 후 종료
+    if (currentFlashbackIndex >= messagesList.length - 1) {
+      const timer = setTimeout(() => {
+        handleCloseMessage();
+        setIsFlashbackMode(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+
+    // 3초 후 다음 메시지로
+    const timer = setTimeout(() => {
+      const nextIndex = currentFlashbackIndex + 1;
+      setCurrentFlashbackIndex(nextIndex);
+      handleReadMessage(messagesList[nextIndex]);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [isFlashbackMode, currentFlashbackIndex, messages]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 via-red-950 to-gray-900 w-full">
