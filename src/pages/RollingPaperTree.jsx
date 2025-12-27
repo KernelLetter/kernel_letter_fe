@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import TreeGrid from '../components/TreeGrid';
 import WriteMessageModal from '../components/WriteMessageModal';
 import ReadMessageModal from '../components/ReadMessageModal';
+import FlashbackModal from '../components/FlashbackModal';
 import { usePageOwner } from '../hooks/usePageOwner';
 import { useMessages } from '../hooks/useMessages';
 import { getTreeRows } from '../utils/treeUtils';
@@ -47,6 +48,8 @@ export default function RollingPaperTree() {
   // 주마등 효과 상태
   const [isFlashbackMode, setIsFlashbackMode] = useState(false);
   const [currentFlashbackIndex, setCurrentFlashbackIndex] = useState(0);
+  const [flashbackMessage, setFlashbackMessage] = useState(null);
+  const [isFlashbackVisible, setIsFlashbackVisible] = useState(true);
 
   // 트리 구조 생성
   const treeRows = getTreeRows(messages);
@@ -62,7 +65,8 @@ export default function RollingPaperTree() {
       const timer = setTimeout(() => {
         setIsFlashbackMode(true);
         setCurrentFlashbackIndex(0);
-        handleReadMessage(messagesList[0]);
+        setFlashbackMessage(messagesList[0]);
+        setIsFlashbackVisible(true);
       }, 1000);
 
       return () => clearTimeout(timer);
@@ -78,21 +82,36 @@ export default function RollingPaperTree() {
     // 마지막 메시지면 3초 후 종료
     if (currentFlashbackIndex >= messagesList.length - 1) {
       const timer = setTimeout(() => {
-        handleCloseMessage();
-        setIsFlashbackMode(false);
+        setIsFlashbackVisible(false);
+        setTimeout(() => {
+          setIsFlashbackMode(false);
+          setFlashbackMessage(null);
+        }, 1000);
       }, 3000);
 
       return () => clearTimeout(timer);
     }
 
-    // 3초 후 다음 메시지로
-    const timer = setTimeout(() => {
+    // 2.5초 후 페이드 아웃 시작
+    const fadeOutTimer = setTimeout(() => {
+      setIsFlashbackVisible(false);
+    }, 2500);
+
+    // 3.5초 후 다음 메시지로 변경
+    const nextMessageTimer = setTimeout(() => {
       const nextIndex = currentFlashbackIndex + 1;
       setCurrentFlashbackIndex(nextIndex);
-      handleReadMessage(messagesList[nextIndex]);
-    }, 3000);
+      setFlashbackMessage(messagesList[nextIndex]);
+      // 페이드 인
+      setTimeout(() => {
+        setIsFlashbackVisible(true);
+      }, 50);
+    }, 3500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(fadeOutTimer);
+      clearTimeout(nextMessageTimer);
+    };
   }, [isFlashbackMode, currentFlashbackIndex, messages]);
 
   return (
@@ -171,6 +190,16 @@ export default function RollingPaperTree() {
           isPageOwner={isPageOwner}
           onClose={handleCloseMessage}
         />
+
+        {/* 주마등 모달 */}
+        {isFlashbackMode && (
+          <FlashbackModal
+            message={flashbackMessage}
+            currentIndex={currentFlashbackIndex}
+            totalCount={Object.keys(messages).length}
+            isVisible={isFlashbackVisible}
+          />
+        )}
       </div>
 
       {/* 눈 내리는 효과 */}
